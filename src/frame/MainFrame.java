@@ -1,6 +1,8 @@
 package frame;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,6 +38,7 @@ public class MainFrame extends JFrame {
         title.setFocusable(false);
         title.setBackground(Color.black);
         title.setFont(new Font("Sans-Serif", Font.CENTER_BASELINE, 65));
+        title.setForeground(new Color(0xFF5733));
 
         JButton playButton = new JButton("Play");
         JButton aboutButton = new JButton("About");
@@ -46,6 +49,49 @@ public class MainFrame extends JFrame {
         mainPanel.add(buttonPanel);
         this.add(mainPanel);
 
+        // menampilkan opsi permainan dengan ai atau multiplayer
+        playButtonListener(playButton, buttonPanel);
+
         this.setVisible(true);
+    }
+
+    public void playButtonListener(JButton button, JPanel panel){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton playWithAi = new JButton("Play With Ai");
+                JButton playMulti = new JButton("Play With Friend");
+
+                // menghapus playbutton dan aboutbutton
+                panel.removeAll();
+
+                // inisialisasi tok
+                playWithAi.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("Ini nanti isinya main dengan ai");
+                    }
+                    
+                });
+
+                // inisialisasi tok
+                playMulti.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("Ini nanti main dengan teman");
+                    }
+                    
+                });
+
+                // nambah button baru
+                panel.add(playWithAi);
+                panel.add(playMulti);
+
+                // mereload
+                panel.revalidate();
+                panel.repaint();
+            }
+            
+        });
     }
 }
